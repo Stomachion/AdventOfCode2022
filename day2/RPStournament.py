@@ -11,21 +11,16 @@ def read_txt_list(txt_file_name):
     return txt_list 
 
 
-def interprete_RPS_strategy(RPS_strategy):
-    for i in range(len(RPS_strategy)):   
-        RPS_strategy[i] = RPS_strategy[i].replace("A", "R")
-        RPS_strategy[i] = RPS_strategy[i].replace("B", "P")
-        RPS_strategy[i] = RPS_strategy[i].replace("C", "S")
-        RPS_strategy[i] = RPS_strategy[i].replace("X", "R")
-        RPS_strategy[i] = RPS_strategy[i].replace("Y", "P")
-        RPS_strategy[i] = RPS_strategy[i].replace("Z", "S")
-
+def translate_strategy(strategy, trans_dict ):
+    trans_strategy = []
+    for game in strategy:
+        mytable = game.maketrans(trans_dict)
+        trans_strategy.append(game.translate(mytable))
+    return trans_strategy
+    
 
 def decode_RPS_strategy(RPS_strategy):
     for i in range(len(RPS_strategy)):   
-        RPS_strategy[i] = RPS_strategy[i].replace("A", "R")
-        RPS_strategy[i] = RPS_strategy[i].replace("B", "P")
-        RPS_strategy[i] = RPS_strategy[i].replace("C", "S")
 
         if RPS_strategy[i][2] == "X":
             if RPS_strategy[i][0] == "R":
@@ -81,18 +76,29 @@ def compute_games_score(RPS_games):
     return games_score
 
 
+def compute_score(strategy):
+    shape_score =compute_shape_score(strategy)
+    game_score = compute_games_score(strategy)
+    return shape_score + game_score
+
+
 # Defining main function
 def main():
     
     RPS_strategy_file = str(sys.argv[1])
     RPS_strategy = read_txt_list(RPS_strategy_file)
-    decode_RPS_strategy(RPS_strategy)
 
-    shape_score =compute_shape_score(RPS_strategy)
-    game_score = compute_games_score(RPS_strategy)
-    total_score = shape_score + game_score
+    trans_dict_opponent = {'A':'R','B':'P','C':'S'}
+    interpreted_strategy = translate_strategy(RPS_strategy, trans_dict_opponent)
+    trans_dict_you = {'X':'R','Y':'P','Z':'S'}
+    interpreted_strategy = translate_strategy(interpreted_strategy, trans_dict_you)
+    print("Your score ", compute_score(interpreted_strategy))
 
-    print("Your score", shape_score, " + " , game_score, " = ", total_score)
+    translate_strategy = interpreted_strategy = translate_strategy(RPS_strategy, trans_dict_opponent)
+
+
+    #decode_RPS_strategy(RPS_strategy)
+
 
 
 # main

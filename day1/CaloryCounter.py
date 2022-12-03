@@ -52,6 +52,7 @@ def compute_top3_total_calories(elves_calories):
 
 # Defining main function
 def main():
+    
     elves_food_list_file = str(sys.argv[1])
     elves_food_list = read_txt_list(elves_food_list_file)
     
