@@ -10,13 +10,15 @@ def read_txt_list(txt_file_name):
     txt_file.close()
     return txt_list 
 
+
 def split_rucksack(rucksack):
     ruck_size = len(rucksack)
     comp_size = ruck_size // 2
-    return rucksack[0:comp_size], rucksack[comp_size:ruck_size]
+    return [set(rucksack[0:comp_size]), set(rucksack[comp_size:ruck_size])]
 
-def find_a_common_item(compartment1, compartment2):
-    return set(compartment1).intersection(compartment2).pop()
+
+def find_a_common_item(bag_list):
+    return set.intersection(*bag_list).pop()
 
 
 def prioritize_item(item:str):
@@ -29,10 +31,22 @@ def prioritize_item(item:str):
 def sum_priorities(rucksack_list):
     sum = int(0)
     for sack in rucksack_list:
-        comp1, comp2 = split_rucksack(sack)
-        common_item = find_a_common_item(comp1, comp2)
+        compartments = split_rucksack(sack)
+        common_item = find_a_common_item(compartments)
         sum += prioritize_item(common_item)
     return sum
+
+
+def sum_group_priorities(rucksack_list):
+    sum = int(0)
+    i = int(0)
+    while i < len(rucksack_list):
+        bags = [set(rucksack_list[i]), set(rucksack_list[i+1]), set(rucksack_list[i+2]) ]
+        common_item = find_a_common_item(bags)
+        sum += prioritize_item(common_item)
+        i+=3
+    return sum
+
 
 # Defining main function
 def main():
@@ -42,6 +56,9 @@ def main():
 
     summed_priorites = sum_priorities(rucksack_list)
     print("The priority sum is ", summed_priorites)
+
+    summed_group_priorities = sum_group_priorities(rucksack_list)
+    print("The Group priority sum is ", summed_group_priorities)
 
 
 # main
