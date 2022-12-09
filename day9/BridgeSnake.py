@@ -20,10 +20,6 @@ def move_snake(snake_moves:list, snake_length: int):
                 snake[j] = update_positions(snake[j-1], snake[j])    
             visited.add(tuple(snake[snake_length-1]))
 
-    """             for i in range(len(snake)):
-                print(snake[i])
-            print()  """
-
     return visited
 
 
@@ -36,21 +32,6 @@ def update_positions(lead_seq, follow_seq):
         follow_seq += update
         return  follow_seq
         
-    """         update = np.where(abs(diff)<2, diff, np.sign(diff))
-        print("update", update)
-         """
-    """     match diff:
-        case _ if 2 in diff:
-            index = np.where(diff==2)
-            diff[index] = 1
-        case _ if -2 in diff:
-            index = np.where(diff==-2)
-            diff[index] = -1
-        case other:
-            diff = np.array([0,0]) 
-    follow_seq += diff
-    return follow_seq """
-
 
 def get_step(direction: str):
     match direction:
