@@ -1,6 +1,5 @@
 import sys
 from read_AoCinputs import *
-#from tree_field import *
 
 
 def print_LOL(list_of_list:list[list]):
