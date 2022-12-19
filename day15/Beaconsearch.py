@@ -180,7 +180,6 @@ def main():
     print("Frequency ", beacon_pos[0]*4000000+beacon_pos[1])
 
 
-
 # main
 if __name__=="__main__":
     main()
