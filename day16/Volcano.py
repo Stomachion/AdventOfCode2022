@@ -116,9 +116,6 @@ class VolcanoSystem:
         self.__finished_paths.sort(reverse=True, key=get_pressure)
 
 
-    def cut_working_paths(self):
-        self.order_paths
-
     def find_best_path(self):
         max = 0
         idx = 0
